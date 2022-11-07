@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-05T16:35:04.786+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-07T19:33:36.554507200+01:00[Europe/Berlin]")
 @Validated
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
@@ -35,14 +35,15 @@ public interface UsersApi {
      * @return List of users sucesfully retrived (status code 200)
      *         or Bad request (status code 400)
      */
-    @ApiOperation(value = "", nickname = "usersGet", notes = "", tags={  })
+    @ApiOperation(value = "", nickname = "usersGet", notes = "", response = UserDto.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "List of users sucesfully retrived"),
+        @ApiResponse(code = 200, message = "List of users sucesfully retrived", response = UserDto.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Bad request") })
     @GetMapping(
-        value = "/users/"
+        value = "/users/",
+        produces = { "application/json" }
     )
-    default ResponseEntity<Void> usersGet(@Min(0)@ApiParam(value = "") @Valid @RequestParam(value = "limit", required = false) Integer limit,@ApiParam(value = "Email of the last entry on the current page") @Valid @RequestParam(value = "markerUser", required = false) String markerUser) {
+    default ResponseEntity<List<UserDto>> usersGet(@Min(0)@ApiParam(value = "") @Valid @RequestParam(value = "limit", required = false) Integer limit,@ApiParam(value = "Email of the last entry on the current page") @Valid @RequestParam(value = "markerUser", required = false) String markerUser) {
         return getDelegate().usersGet(limit, markerUser);
     }
 
@@ -53,13 +54,14 @@ public interface UsersApi {
      * @param personId  (required)
      * @return ok (status code 200)
      */
-    @ApiOperation(value = "Deletes the User", nickname = "usersPersonIdDelete", notes = "", tags={ "Users", })
+    @ApiOperation(value = "Deletes the User", nickname = "usersPersonIdDelete", notes = "", response = UserDto.class, tags={ "Users", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "ok") })
+        @ApiResponse(code = 200, message = "ok", response = UserDto.class) })
     @DeleteMapping(
-        value = "/users/{personId}"
+        value = "/users/{personId}",
+        produces = { "application/json" }
     )
-    default ResponseEntity<Void> usersPersonIdDelete(@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") @Size(min=36,max=36) @ApiParam(value = "",required=true) @PathVariable("personId") String personId) {
+    default ResponseEntity<UserDto> usersPersonIdDelete(@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") @Size(min=36,max=36) @ApiParam(value = "",required=true) @PathVariable("personId") String personId) {
         return getDelegate().usersPersonIdDelete(personId);
     }
 
@@ -89,14 +91,15 @@ public interface UsersApi {
      * @param userDto  (optional)
      * @return ok (status code 200)
      */
-    @ApiOperation(value = "Modifies the User", nickname = "usersPersonIdPut", notes = "", tags={ "Users", })
+    @ApiOperation(value = "Modifies the User", nickname = "usersPersonIdPut", notes = "", response = UserDto.class, tags={ "Users", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "ok") })
+        @ApiResponse(code = 200, message = "ok", response = UserDto.class) })
     @PutMapping(
         value = "/users/{personId}",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> usersPersonIdPut(@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") @Size(min=36,max=36) @ApiParam(value = "",required=true) @PathVariable("personId") String personId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) UserDto userDto) {
+    default ResponseEntity<UserDto> usersPersonIdPut(@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") @Size(min=36,max=36) @ApiParam(value = "",required=true) @PathVariable("personId") String personId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) UserDto userDto) {
         return getDelegate().usersPersonIdPut(personId, userDto);
     }
 
@@ -107,14 +110,15 @@ public interface UsersApi {
      * @param userCreateCommand  (optional)
      * @return User sucessfully created (status code 201)
      */
-    @ApiOperation(value = "Creates a new user", nickname = "usersPost", notes = "", tags={ "Users", })
+    @ApiOperation(value = "Creates a new user", nickname = "usersPost", notes = "", response = UserDto.class, tags={ "Users", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "User sucessfully created") })
+        @ApiResponse(code = 201, message = "User sucessfully created", response = UserDto.class) })
     @PostMapping(
         value = "/users/",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> usersPost(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) UserCreateCommand userCreateCommand) {
+    default ResponseEntity<UserDto> usersPost(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) UserCreateCommand userCreateCommand) {
         return getDelegate().usersPost(userCreateCommand);
     }
 

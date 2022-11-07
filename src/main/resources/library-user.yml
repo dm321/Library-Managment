@@ -16,6 +16,10 @@ paths:
               $ref: '#/components/schemas/UserCreateCommand'
       responses:
         '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
           description: User sucessfully created
     get:
       parameters:
@@ -23,6 +27,12 @@ paths:
         - $ref: '#/components/parameters/MarkerUser'
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/UserDto'
           description: List of users sucesfully retrived
         '400':
           description: Bad request
@@ -55,6 +65,10 @@ paths:
               $ref: '#/components/schemas/UserDto'
       responses:
         '200':
+          content:
+           application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
           description: ok
     delete:
       tags:
@@ -62,6 +76,10 @@ paths:
       summary: Deletes the User
       responses:
         '200':
+          content:
+           application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
           description: ok
 components:
   requestBodies:

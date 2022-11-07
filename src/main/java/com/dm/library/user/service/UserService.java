@@ -1,12 +1,13 @@
 package com.dm.library.user.service;
 
+import com.dm.library.user.model.dto.UserCreateCommand;
 import com.dm.library.user.model.dto.UserDto;
 
 public interface UserService {
 
-	UserDto createUser(UserDto userDto);
+	UserDto createUser(UserCreateCommand userCreateCommand);
 
-	UserDto updaateUser(UserDto userDto);
+	UserDto updateUser(UserCreateCommand userCreateCommand);
 
 	void deleteUser(String personId);
 

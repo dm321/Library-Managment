@@ -46,7 +46,8 @@ public class UsersApiDelegateImpl implements UsersApiDelegate{
 
     @Override
     public ResponseEntity<UserDto> usersPost(UserCreateCommand userCreateCommand) {
-    	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	UserDto createdUser = userService.createUser(new UserDto());
+    	return ResponseEntity.created(null).body(createdUser);
 
     }
 

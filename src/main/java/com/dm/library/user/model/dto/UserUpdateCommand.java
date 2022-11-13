@@ -8,10 +8,10 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * UserCreateCommand
+ * UserUpdateCommand
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-05T16:35:04.786+01:00[Europe/Berlin]")
-public class UserCreateCommand   {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-09T23:01:09.263807900+01:00[Europe/Berlin]")
+public class UserUpdateCommand   {
   @JsonProperty("firstName")
   private String firstName;
 
@@ -21,7 +21,7 @@ public class UserCreateCommand   {
   @JsonProperty("email")
   private String email;
 
-  public UserCreateCommand firstName(String firstName) {
+  public UserUpdateCommand firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -41,7 +41,7 @@ public class UserCreateCommand   {
     this.firstName = firstName;
   }
 
-  public UserCreateCommand lastName(String lastName) {
+  public UserUpdateCommand lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -61,7 +61,7 @@ public class UserCreateCommand   {
     this.lastName = lastName;
   }
 
-  public UserCreateCommand email(String email) {
+  public UserUpdateCommand email(String email) {
     this.email = email;
     return this;
   }
@@ -72,7 +72,7 @@ public class UserCreateCommand   {
   */
   @ApiModelProperty(example = "example@test.com", value = "")
 
-@Pattern(regexp="^\\S+@\\S+\\.\\S+$")
+@Pattern(regexp="/^\\S+@\\S+\\.\\S+$/") 
   public String getEmail() {
     return email;
   }
@@ -90,10 +90,10 @@ public class UserCreateCommand   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserCreateCommand userCreateCommand = (UserCreateCommand) o;
-    return Objects.equals(this.firstName, userCreateCommand.firstName) &&
-        Objects.equals(this.lastName, userCreateCommand.lastName) &&
-        Objects.equals(this.email, userCreateCommand.email);
+    UserUpdateCommand userUpdateCommand = (UserUpdateCommand) o;
+    return Objects.equals(this.firstName, userUpdateCommand.firstName) &&
+        Objects.equals(this.lastName, userUpdateCommand.lastName) &&
+        Objects.equals(this.email, userUpdateCommand.email);
   }
 
   @Override
@@ -104,7 +104,7 @@ public class UserCreateCommand   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserCreateCommand {\n");
+    sb.append("class UserUpdateCommand {\n");
     
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");

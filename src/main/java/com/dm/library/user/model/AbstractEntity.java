@@ -1,26 +1,23 @@
 package com.dm.library.user.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@Id
+	protected Long id;
 
-	private LocalDateTime createdOn;
+	protected LocalDateTime createdOn;
 
-	private LocalDateTime updatedOn;
+	protected LocalDateTime updatedOn;
 	
 	@PrePersist
 	public void prePersist() {
 		createdOn = LocalDateTime.now();
+		updatedOn = LocalDateTime.now();
 	}
 
 	@PreUpdate

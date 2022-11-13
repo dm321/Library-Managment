@@ -1,21 +1,21 @@
 package com.dm.library.user.api;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.dm.library.user.model.dto.UserCreateCommand;
+import com.dm.library.user.model.dto.UserDto;
+import com.dm.library.user.model.dto.UserUpdateCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import com.dm.library.user.model.dto.UserCreateCommand;
-import com.dm.library.user.model.dto.UserDto;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * A delegate to be called by the {@link UsersApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-07T19:33:36.554507200+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-09T23:04:55.654481+01:00[Europe/Berlin]")
 public interface UsersApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -92,12 +92,12 @@ public interface UsersApiDelegate {
      * PUT /users/{personId} : Modifies the User
      *
      * @param personId  (required)
-     * @param userDto  (optional)
+     * @param userUpdateCommand  (optional)
      * @return ok (status code 200)
      * @see UsersApi#usersPersonIdPut
      */
     default ResponseEntity<UserDto> usersPersonIdPut(String personId,
-        UserDto userDto) {
+        UserUpdateCommand userUpdateCommand) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

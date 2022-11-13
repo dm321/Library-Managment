@@ -3,8 +3,9 @@ package com.dm.library.user.mapper;
 import com.dm.library.user.model.User;
 import com.dm.library.user.model.dto.UserCreateCommand;
 import com.dm.library.user.model.dto.UserDto;
-import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
@@ -15,11 +16,10 @@ import org.springframework.stereotype.Component;
 public class UserMapperImpl implements UserMapper {
 
     @Override
-    public UserDto UserToUserDto(User user) {
+    public UserDto userToUserDto(User user) {
         if ( user == null ) {
             return null;
         }
-
         UserDto userDto = new UserDto();
 
         userDto.setPersonId( map( user.getPersonId() ) );

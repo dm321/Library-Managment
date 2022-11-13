@@ -7,18 +7,19 @@ package com.dm.library.user.api;
 
 import com.dm.library.user.model.dto.UserCreateCommand;
 import com.dm.library.user.model.dto.UserDto;
+import com.dm.library.user.model.dto.UserUpdateCommand;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-07T19:33:36.554507200+01:00[Europe/Berlin]")
+
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-11-09T23:04:55.654481+01:00[Europe/Berlin]")
 @Validated
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
@@ -88,7 +89,7 @@ public interface UsersApi {
      * PUT /users/{personId} : Modifies the User
      *
      * @param personId  (required)
-     * @param userDto  (optional)
+     * @param userUpdateCommand  (optional)
      * @return ok (status code 200)
      */
     @ApiOperation(value = "Modifies the User", nickname = "usersPersonIdPut", notes = "", response = UserDto.class, tags={ "Users", })
@@ -99,8 +100,8 @@ public interface UsersApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<UserDto> usersPersonIdPut(@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") @Size(min=36,max=36) @ApiParam(value = "",required=true) @PathVariable("personId") String personId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) UserDto userDto) {
-        return getDelegate().usersPersonIdPut(personId, userDto);
+    default ResponseEntity<UserDto> usersPersonIdPut(@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$") @Size(min=36,max=36) @ApiParam(value = "",required=true) @PathVariable("personId") String personId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) UserUpdateCommand userUpdateCommand) {
+        return getDelegate().usersPersonIdPut(personId, userUpdateCommand);
     }
 
 

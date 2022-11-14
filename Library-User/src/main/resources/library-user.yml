@@ -24,7 +24,9 @@ paths:
     get:
       parameters:
         - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/MarkerUser'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Direction'
       responses:
         '200':
           content:
@@ -33,6 +35,19 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserDto'
+          headers:
+            'Pagination-Count':
+              schema:
+                type: integer
+              description: Total number of items
+            'Pagination-Page':
+              schema:
+                type: integer
+              description: Current page number
+            'Pagination-Limit':
+              schema:
+                type: integer
+              description: Number of returned items
           description: List of users sucesfully retrived
         '400':
           description: Bad request
@@ -89,19 +104,53 @@ components:
           schema:
             $ref: '#/components/schemas/UserDto'
   parameters:
-    Limit:
-      name: limit
+    Page:
+      name: page
       in: query
+      description: Current page number
       required: false
       schema:
         type: integer
-        minimum: 0
-    MarkerUser:
-      name: markerUser
+        format: int32
+        default: 1
+        minimum: 1
+    Limit:
+      name: limit
       in: query
-      description: Email of the last entry on the current page
+      description: Limits the number of returned items
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 10
+        minimum: 10
+        maximum: 100
+        multipleOf: 10
+    Sort:
+      name: sort
+      in: query
+      explode: false
+      required: false
+      description: Sorting criteria for retriving list of user. Has to match with properties of User
+      example: email,firstname
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+        minItems: 1
+        maxItems: 2
+    Direction:
+      name: direction
+      in: query
+      required: false
+      description: Direction of sorting
+      example: desc,asc
       schema:
         type: string
+        enum: [asc,desc]
+        maximum: 1
+        default: asc
   schemas:
     UserDto:
       type: object
@@ -166,6 +215,7 @@ components:
       minLength: 36
       maxLength: 36
       example: 123e4567-e89b-12d3-a456-426614174000
+
 
 
 

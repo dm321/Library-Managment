@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -32,8 +36,7 @@ public class UserRepositoryTest extends AbstractUserTest {
     }
 
     @Test
-    void userPrePersist_Test()
-    {
+    void userPrePersist_Test() {
         User user = getInstanceOfUser(false);
         user = userRepository.save(user);
 
@@ -51,8 +54,7 @@ public class UserRepositoryTest extends AbstractUserTest {
     }
 
     @Test
-    void userPreUpdate_Test()
-    {
+    void userPreUpdate_Test() {
         User user = getInstanceOfUser(false);
         user = userRepository.save(user);
 
@@ -67,8 +69,7 @@ public class UserRepositoryTest extends AbstractUserTest {
     }
 
     @Test
-    void userDeleteByPersonId_Porisitve_Test()
-    {
+    void userDeleteByPersonId_Porisitve_Test() {
 
         User user = getInstanceOfUser(false);
         userRepository.save(user);
@@ -81,9 +82,47 @@ public class UserRepositoryTest extends AbstractUserTest {
     }
 
     @Test
-    void userDeleteByPersonId_Negative()
-    {
+    void userDeleteByPersonId_Negative() {
         List<User> deletedUsers = userRepository.deleteByPersonId(UUID.fromString(PERSONID));
         assertThat(deletedUsers.size()).isZero();
+    }
+
+    @Test
+    void findAllTest_Positive() {
+        int numberOfUsers = 11;
+        int intnumberOfTotalPages = 2;
+        int pageSize = 10;
+        int pageNumber= 0;
+        User userCreated = insertUserAndReturnLast(numberOfUsers);
+        LocalDateTime lastUserCreationTime = userCreated.getCreatedOn();
+
+        PageRequest pageRequest = PageRequest.of(0, pageSize, Sort.by("id")
+                .ascending());
+
+        Page<User> pagedUsers1 = userRepository.findAll(pageRequest);
+
+        pageRequest= PageRequest.of(1,pageSize, Sort.by("id"));
+
+        Page<User> pagedUsers2 = userRepository.findAll(pageRequest);
+
+        assertThat(pagedUsers1.getTotalPages()).isEqualTo(intnumberOfTotalPages);
+        assertThat(pagedUsers1.getTotalElements()).isEqualTo(numberOfUsers);
+        assertThat(pagedUsers1.getSize()).isEqualTo(pageSize);
+        assertThat(pagedUsers1.get().noneMatch(user -> user.getCreatedOn().isAfter(lastUserCreationTime))).isTrue();
+
+        assertThat(pagedUsers2.stream().count()).isEqualTo(1);
+        assertThat(pagedUsers2.isLast()).isTrue();
+        assertThat(pagedUsers2.get().findFirst().get().getId()).isEqualTo(userCreated.getId());
+    }
+
+    private User insertUserAndReturnLast(int numberOfUser)
+    {
+        User user = null;
+        for(int i=0; i<numberOfUser; i++)
+        {
+            user = getInstanceOfUser(false);
+            userRepository.save(user);
+        }
+        return user;
     }
 }

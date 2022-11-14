@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UsersApiDelegateImpl implements UsersApiDelegate {
@@ -18,8 +19,7 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
     private UserService userService;
 
     @Override
-    public ResponseEntity<List<UserDto>> usersGet(Integer limit,
-                                                  String markerUser) {
+    public ResponseEntity<List<UserDto>> usersGet(Integer limit, Integer page, List<String> sort, String direction) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -40,8 +40,7 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
     }
 
     @Override
-    public ResponseEntity<UserDto> usersPersonIdPut(String personId,
-                                                    UserUpdateCommand userUpdateCommand) {
+    public ResponseEntity<UserDto> usersPersonIdPut(String personId, UserUpdateCommand userUpdateCommand) {
         var updatedUser = userService.updateUser(personId, userUpdateCommand);
         return ResponseEntity.ok(updatedUser);
 
@@ -50,7 +49,8 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
     @Override
     public ResponseEntity<UserDto> usersPost(UserCreateCommand userCreateCommand) {
         var createdUser = userService.createUser(userCreateCommand);
-        return ResponseEntity.created(null).body(createdUser);
+        return ResponseEntity.created(null)
+                .body(createdUser);
 
     }
 
